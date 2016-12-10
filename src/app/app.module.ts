@@ -9,7 +9,7 @@ import { ItemDetailComponent } from './item-detail.component';
 import { DashboardComponent } from './dashboard.component';
 import { ItemsComponent } from './items.component';
 import { LoginComponent } from './login.component';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthMethods } from 'angularfire2';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -18,6 +18,11 @@ export const firebaseConfig = {
     authDomain: "myorderlist-47990.firebaseapp.com",
     databaseURL: "https://myorderlist-47990.firebaseio.com",
     storageBucket: "myorderlist-47990.appspot.com",
+};
+
+const firebaseAuthConfig = {
+  method: AuthMethods.Popup,
+  remember: 'default'
 };
 
 @NgModule({
@@ -33,7 +38,7 @@ export const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     AppRoutingModule
   ],
   providers: [],

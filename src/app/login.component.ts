@@ -12,6 +12,12 @@ export class LoginComponent {
   constructor(public af: AngularFire, private router: Router) {
     this.af.auth.subscribe(auth => console.log(auth));
   }
+  
+  signIn(provider: number): firebase.Promise<FirebaseAuthState> {
+    return this.af.auth.login({provider})
+      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
+  }
+
   signInAnonymously(): firebase.Promise<FirebaseAuthState> {
     return this.af.auth.login({
       provider: AuthProviders.Anonymous,
@@ -20,12 +26,12 @@ export class LoginComponent {
     .catch(error => console.log('ERROR @ AuthService#signInAnonymously() :', error))
     .then(() => this.postSignIn());
   }
-  loginWithGoogle() {
-    this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup,
-    });
+
+  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
+    return this.signIn(AuthProviders.Google)
+    .then(() => this.postSignIn());
   }
+
   private postSignIn(): void {
     this.router.navigate(['/dashboard']);
   }
