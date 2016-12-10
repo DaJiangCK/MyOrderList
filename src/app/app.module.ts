@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { AddItemComponent } from './additem.component';
 import { ItemDetailComponent } from './item-detail.component';
 import { DashboardComponent } from './dashboard.component';
-import { ItemsComponent} from './items.component'
+import { ItemsComponent } from './items.component';
+import { LoginComponent } from './login.component';
 import { AngularFireModule } from 'angularfire2';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +26,8 @@ export const firebaseConfig = {
     AddItemComponent,
     DashboardComponent,
     ItemsComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
