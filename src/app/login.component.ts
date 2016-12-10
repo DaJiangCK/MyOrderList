@@ -32,6 +32,10 @@ export class LoginComponent {
     .then(() => this.postSignIn());
   }
 
+  // signOut(): void {
+  //   this.af.auth.logout();
+  // }
+
   private postSignIn(): void {
     this.router.navigate(['/dashboard']);
   }

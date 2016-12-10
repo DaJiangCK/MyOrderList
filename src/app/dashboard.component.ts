@@ -21,4 +21,9 @@ export class DashboardComponent implements OnInit {
   createItem(date: number) {
     this.router.navigate(['/items', date]);
   }
+
+  signOut(): void {
+    this.af.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }

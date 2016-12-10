@@ -32,6 +32,7 @@ export class ItemDetailComponent implements OnInit {
 
   deleteItem() {    
     this.items.remove(this.item); 
+    this.item = null;
   }
 
   deleteEverything() {
