@@ -1,0 +1,22 @@
+<!--<h1>{{ (item | async)?.itemNumber }}</h1>-->
+
+
+    <div>
+        <label>Name: </label>
+        <input type="text" #itemName/>
+    </div>
+    <div>
+        <label>Item Number: </label>
+        <input type="text" #itemNumber/>
+    </div>
+    <div>
+        <label>Size: </label>
+        <input type="text" #itemSize/>
+    </div>
+    <div>
+        <label>Color: </label>
+        <input type="text" #itemColor/>
+    </div>
+
+    <button (click)="addItem(itemName.value, itemNumber.value, itemSize.value, itemColor.value)">Add</button>
+    <button (click)="goBack()">Go Back</button>
