@@ -18,10 +18,13 @@
           <tr>
               <td><md-input type="text" [(ngModel)]="item.tbId" #tbId placeholder="TbId" style="width: 100%"></md-input></td>
           </tr>
+          <tr>
+              <td><input type="checkbox" [(ngModel)]="item.status" #status placeholder="Status">{{item.status}}</td>
+          </tr>
     </table>
   </md-card-content>
   <md-card-actions>
-    <button type="button" class="btn btn-info" (click)="updateItem(name.value, number.value, size.value, color.value, tbId.value)">Update</button>
+    <button type="button" class="btn btn-info" (click)="updateItem(name.value, number.value, size.value, color.value, tbId.value, status.checked)">Update</button>
     <button type="button" class="btn btn-info" (click)="removeItem()">Delete</button>
    </md-card-actions>
 </md-card>

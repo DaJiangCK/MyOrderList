@@ -29,20 +29,17 @@ export class ItemDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.createDate = +this.route.snapshot.params['date'];
-    console.log("this.createDate =========" + this.createDate);
-    // if(this.item){
-    //   this.items$ = this.itemService.items;
-    // }
   }
 
   createItem(name: string, number: string, size: string, color: string, tbId: string) {
       this.newItem = new Item(name, number, size, color, tbId, this.createDate);
-      console.log(this.newItem);
-      this.itemService.createItem(this.newItem);
+      this.itemService.createItem(this.newItem).then(()=>{
+        this.goBack();
+      });
   }
 
-  updateItem(name: string, number: string, size: string, color: string, tbId: string) {
-      this.itemService.updateItem(this.item, {name,number,size,color,tbId});
+  updateItem(name: string, number: string, size: string, color: string, tbId: string, status: boolean) {
+      this.itemService.updateItem(this.item, {name, number, size, color, tbId, status});
   }
 
   removeItem() {    

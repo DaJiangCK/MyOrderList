@@ -25,6 +25,8 @@
               <label>{{item.size}}</label>
               <br>
               <label>{{item.color}}</label>
+              <br>
+              <input type="checkbox" [(ngModel)]="item.status">{{item.status}}
             </div>
             <!--<div class="col-sm-4">
               <button type="button" class="btn btn-info" (click)="onSelect(item)">VIEW DETAIL</button>
