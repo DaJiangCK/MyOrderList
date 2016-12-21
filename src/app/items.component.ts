@@ -21,6 +21,7 @@ export class ItemsComponent implements OnInit {
   selectedItem: Item;
   createDate: number;
   isHistory: boolean;
+  itemStatus: string;
 
   constructor(
       private itemService: ItemService, 
@@ -69,5 +70,4 @@ export class ItemsComponent implements OnInit {
   addItem(): void{
     this.router.navigate(['/detail', this.createDate]);
   }
-
 }

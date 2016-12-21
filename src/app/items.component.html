@@ -26,7 +26,7 @@
               <br>
               <label>{{item.color}}</label>
               <br>
-              <input type="checkbox" [(ngModel)]="item.status">{{item.status}}
+              <input type="checkbox" [(ngModel)]="item.status"><label *ngIf="item.status">Got it</label>
             </div>
             <!--<div class="col-sm-4">
               <button type="button" class="btn btn-info" (click)="onSelect(item)">VIEW DETAIL</button>

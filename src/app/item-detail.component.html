@@ -19,7 +19,7 @@
               <td><md-input type="text" [(ngModel)]="item.tbId" #tbId placeholder="TbId" style="width: 100%"></md-input></td>
           </tr>
           <tr>
-              <td><input type="checkbox" [(ngModel)]="item.status" #status placeholder="Status">{{item.status}}</td>
+              <td><input type="checkbox" [(ngModel)]="item.status" #status placeholder="Status"><label *ngIf="item.status">Got it</label></td>
           </tr>
     </table>
   </md-card-content>
