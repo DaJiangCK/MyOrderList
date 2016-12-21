@@ -1,4 +1,39 @@
-<!--<div> {{ (af.auth | async)?.uid }} </div>-->
-
-<button (click)="signInAnonymously()">Sign In Anonymously</button>
-<button (click)="signInWithGoogle()">Login With Google</button>
+<!--<div class="containerX">
+    <div class="container">
+        <div></div>
+        <div [fx-flex]="calc2Cols">
+            <button md-raised-button color="primary" 
+            (click)="signInAnonymously()">Sign In Anonymously</button>
+        </div>
+        <div></div>
+    </div>
+    <div class="container">
+        <div></div>
+        <div [fx-flex]="calc2Cols">
+            <button md-raised-button color="primary" 
+            (click)="signInWithGoogle()">Login With Google</button>
+        </div>
+        <div></div>
+    </div>
+</div>-->
+<!--<div>
+<button md-raised-button color="primary" (click)="signInAnonymously()">Sign In Anonymously</button>
+</div>
+<div>
+<button md-raised-button color="primary" (click)="signInWithGoogle()">Login With Google</button>
+</div>-->
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-info" (click)="signInAnonymously()">
+                    Sign In Anonymously</button>
+                <br>
+                <button type="button" class="btn btn-info" (click)="signInWithGoogle()">
+                    Login With Google</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2';
 import { Router } from '@angular/router';
+import { Item } from '../models/item';
+import { ItemService } from '../services/item-service';
 
 
 
@@ -14,27 +16,50 @@ import { Router } from '@angular/router';
 })
 export class ItemsComponent implements OnInit {
 
-  items: FirebaseListObservable<any>;
-  selectedItem: any;
-  date: number;
+  items$: FirebaseListObservable<Item[]>;
+  // item: Item;
+  selectedItem: Item;
+  createDate: number;
+  isHistory: boolean;
 
   constructor(
-      private af: AngularFire, 
+      private itemService: ItemService, 
       private route: ActivatedRoute, 
       private location: Location,
       private router: Router) { }
 
   ngOnInit(): void {
-    this.date = +this.route.snapshot.params['date'];
-    this.items = this.af.database.list('/orders' + '/' + this.date);
-}
+    this.createDate = +this.route.snapshot.params['date'];
 
-  onSelect(item: any): void {
+    // this.items = this.af.database.list('/orders' + '/' + this.date);
+    if(this.createDate == 1){
+       //search for all items
+      this.itemService.filterTasks(1);
+      this.isHistory = true;
+    }else {
+      this.itemService.filterTasks(this.createDate);
+      this.isHistory = false;
+      // this.items$ = this.itemService.items;
+    }
+
+    this.items$ = this.itemService.filterItems;
+    this.items$.subscribe(queriedItems => {
+        console.log(queriedItems);  
+    });
+
+  }
+
+  onSelect(item: Item): void {
     this.selectedItem = item;
+    // this.gotoDetail();
+  }
+
+  cancelSelected(): void {
+    this.selectedItem = null;
   }
 
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.date]);
+    this.router.navigate(['/detail', this.createDate]);
   }
 
   goBack(): void {
@@ -42,6 +67,7 @@ export class ItemsComponent implements OnInit {
   }
 
   addItem(): void{
-    this.router.navigate(['/additem', this.date]);
+    this.router.navigate(['/detail', this.createDate]);
   }
+
 }

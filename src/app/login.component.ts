@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { Component, OnInit } from '@angular/core';
+// import { AngularFire, AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -8,33 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
-  constructor(public af: AngularFire, private router: Router) {
-    this.af.auth.subscribe(auth => console.log(auth));
-  }
+export class LoginComponent implements OnInit{
+  constructor(public auth: AuthService, private router: Router) {}
   
-  signIn(provider: number): firebase.Promise<FirebaseAuthState> {
-    return this.af.auth.login({provider})
-      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
+  ngOnInit(): void {
+    // console.log("===========" + this.auth.authenticated);
+    // if(this.auth.authenticated){
+    //   this.postSignIn();
+    // }
   }
 
-  signInAnonymously(): firebase.Promise<FirebaseAuthState> {
-    return this.af.auth.login({
-      provider: AuthProviders.Anonymous,
-      method: AuthMethods.Anonymous
-    })
-    .catch(error => console.log('ERROR @ AuthService#signInAnonymously() :', error))
-    .then(() => this.postSignIn());
+  signInAnonymously(): void {
+    this.auth.signInAnonymously()
+      .then(() => this.postSignIn());
   }
 
-  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Google)
-    .then(() => this.postSignIn());
+  signInWithGithub(): void {
+    this.auth.signInWithGithub()
+      .then(() => this.postSignIn());
   }
 
-  // signOut(): void {
-  //   this.af.auth.logout();
-  // }
+  signInWithGoogle(): void {
+    this.auth.signInWithGoogle()
+      .then(() => this.postSignIn());
+  }
+
+  signInWithTwitter(): void {
+    this.auth.signInWithTwitter()
+      .then(() => this.postSignIn());
+  }
 
   private postSignIn(): void {
     this.router.navigate(['/dashboard']);

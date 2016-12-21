@@ -1,25 +1,50 @@
-<ul>
-  <li *ngFor="let item of items | async" (click)="onSelect(item)">
-    <!--<input type="text" #updatetext [value]="item.itemName" />-->
-    <span class="badge">Name: {{item.itemName}}</span> Number: {{item.itemNumber}}
-    Size: {{item.itemSize}} Color: {{item.itemColor}}
-
-    <!--<button (click)="updateItem(item.$key, updatetext.value)">Update</button>
-    <button (click)="deleteItem(item.$key)">Delete</button>-->
-  </li>
-</ul>
-
-<button id="addButton" (click)="addItem()">Add Item</button>
-<button (click)="goBack()">Go Back</button>
-
-
-<div *ngIf="selectedItem">
-    <h2>
-        {{selectedItem.itemName | uppercase}} is my selected
-    </h2>
-    <!--<button (click)="gotoDetail()">View Details</button>-->
-
-    <item-detail [item]="selectedItem" ></item-detail>
+<div class="row">
+  <div class="col-sm-1">
+    <button type="button" class="btn btn-warning" (click)="goBack()">Go Back</button>
+  </div>
+  <div class="col-sm-1">
+    <button *ngIf!="isHistory" type="button" class="btn btn-info" (click)="addItem()">Add Item</button>
+  </div>
 </div>
+<br>
+
+<div class="row">
+    <div class="col-sm-4">
+      <ul class="list-group">
+        <label *ngIf="isHistory">History List</label>
+        <label *ngIf!="isHistory">Date: {{ createDate * 1000 | date:'yyyy-MM-dd' }}</label>
+        <br>
+        <li *ngFor="let item of items$ | async ; let i = index" class="list-group-item" (click)="onSelect(item)">
+          <div class="row">
+            <div class="col-sm-12">
+              <label>{{i+1}}. {{item.name}}</label>
+              <!--<p>Date: {{item.createDate * 1000 | date:'yyyy-MM-dd' }}</p>-->
+              <br>
+              <label>{{item.number}}</label>
+              <br>
+              <label>{{item.size}}</label>
+              <br>
+              <label>{{item.color}}</label>
+            </div>
+            <!--<div class="col-sm-4">
+              <button type="button" class="btn btn-info" (click)="onSelect(item)">VIEW DETAIL</button>
+            </div>-->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="selectedItem" class="col-sm-8">
+      <label>{{selectedItem.name | uppercase}} is my selected</label>
+      <br>
+      <item-detail [item]="selectedItem" (cancelSelected)="cancelSelected($event)"></item-detail>
+    </div>
+</div>
+
+
+
+
+
+
+
 
 

@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+// import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { ItemService } from '../services/item-service';
+import { Item } from '../models/item';
+import { ItemsComponent } from './items.component';
 
 @Component({
   selector: 'item-detail',
@@ -11,33 +15,44 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 })
 export class ItemDetailComponent implements OnInit {
 //   item: FirebaseObjectObservable<any>;
-  items: FirebaseListObservable<any>;
-  @Input() item: any;
-  date: number;
-  constructor(private af: AngularFire, private route: ActivatedRoute, private location: Location) {
+  // items: FirebaseListObservable<any>;
+  // items$: FirebaseListObservable<Item[]>;
+  @Input() item: Item;
+  @Output() cancelSelected = new EventEmitter();
+  newItem: Item;
+  // items$: FirebaseListObservable<Item[]>;
+  createDate: number;
+  constructor(private itemService: ItemService, 
+  private route: ActivatedRoute, 
+  private location: Location) {
   }
 
   ngOnInit(): void {
-    this.date = +this.route.snapshot.params['date'];
-    // this.key = this.route.snapshot.data['key'];
-    // console.log(this.date, this.key);
-    this.items = this.af.database.list('/orders' + '/' + this.date);
-    // this.item = this.af.database.object('/orders/20161209/-KYaJJQwrhfp5AKRkJoq');
-    
+    this.createDate = +this.route.snapshot.params['date'];
+    console.log("this.createDate =========" + this.createDate);
+    // if(this.item){
+    //   this.items$ = this.itemService.items;
+    // }
   }
 
-  updateItem(itemName: string, itemNumber: string, itemSize: string, itemColor: string) {
-    this.items.update(this.item.$key, { itemName: itemName, itemNumber: itemNumber, itemSize: itemSize, itemColor: itemColor});
+  createItem(name: string, number: string, size: string, color: string, tbId: string) {
+      this.newItem = new Item(name, number, size, color, tbId, this.createDate);
+      console.log(this.newItem);
+      this.itemService.createItem(this.newItem);
   }
 
-  deleteItem() {    
-    this.items.remove(this.item); 
-    this.item = null;
+  updateItem(name: string, number: string, size: string, color: string, tbId: string) {
+      this.itemService.updateItem(this.item, {name,number,size,color,tbId});
   }
 
-  deleteEverything() {
-    this.items.remove();
+  removeItem() {    
+    this.itemService.removeItem(this.item);
+    this.cancelSelected.emit();
   }
+
+  // deleteEverything() {
+  //   this.items.remove();
+  // }
 
   goBack(): void {
       this.location.back();

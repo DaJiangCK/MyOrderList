@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+// import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +10,4 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class AppComponent {
   title = 'My Order List';
-
 }

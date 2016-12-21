@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+// import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AuthService } from '../services/auth-service'
 
 @Component({
     selector: 'my-dashboard',
@@ -10,20 +11,39 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 
 export class DashboardComponent implements OnInit {
-  items: FirebaseListObservable<any[]>;
-  constructor(private af: AngularFire, private router: Router) {
+  // items: FirebaseListObservable<any[]>;
+  authorized: boolean;
+  createDate: number;
+
+  constructor(private auth: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
     // this.items = this.af.database.list('/orders');
-  }
-
-  createItem(date: number) {
-    this.router.navigate(['/items', date]);
+    this.authorized = this.auth.authenticated;
+    console.log("signout====" + this.auth.authenticated);
   }
 
   signOut(): void {
-    this.af.auth.logout();
+    this.auth.signOut();
+    // console.log("signout ====" + this.auth.authenticated);
+    // console.log("user id ====" + this.auth.id);
     this.router.navigate(['/login']);
+  }
+
+  onDateChanged(event:any) {
+  console.log('onDateChanged(): ', event.date, ' - jsdate: ', 
+  new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', 
+  event.formatted, ' - epoc timestamp: ', event.epoc);
+  
+  this.createDate = event.epoc;
+}
+
+  navigateItems() {
+    this.router.navigate(['/items', this.createDate]);
+  }
+
+  getHistory(){
+    this.router.navigate(['/items', 1]);
   }
 }

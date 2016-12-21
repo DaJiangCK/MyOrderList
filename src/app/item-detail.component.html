@@ -1,22 +1,53 @@
-<div *ngIf="item">
-    <div>
-        <label>Name: </label>
-        <input type="text" [(ngModel)]="item.itemName" #itemName/>
-    </div>
-    <div>
-        <label>Item Number: </label>
-        <input type="text" [(ngModel)]="item.itemNumber" #itemNumber/>
-    </div>
-    <div>
-        <label>Size: </label>
-        <input type="text" [(ngModel)]="item.itemSize" #itemSize/>
-    </div>
-    <div>
-        <label>Color: </label>
-        <input type="text" [(ngModel)]="item.itemColor" #itemColor/>
-    </div>
+<button *ngIf!="item" type="button" class="btn btn-warning" (click)="goBack()">Go Back</button>
+<md-card *ngIf="item">
+  <md-toolbar color="warn">Item Detail</md-toolbar>
+  <md-card-content>
+      <table style="width: 100%" cellspacing="0">
+          <tr>
+              <td><md-input type="text" [(ngModel)]="item.name" #name placeholder="Name" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" [(ngModel)]="item.number" #number placeholder="Item Number" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" [(ngModel)]="item.size" #size placeholder="Size" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" [(ngModel)]="item.color" #color placeholder="Color" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" [(ngModel)]="item.tbId" #tbId placeholder="TbId" style="width: 100%"></md-input></td>
+          </tr>
+    </table>
+  </md-card-content>
+  <md-card-actions>
+    <button type="button" class="btn btn-info" (click)="updateItem(name.value, number.value, size.value, color.value, tbId.value)">Update</button>
+    <button type="button" class="btn btn-info" (click)="removeItem()">Delete</button>
+   </md-card-actions>
+</md-card>
 
-    <button (click)="updateItem(itemName.value, itemNumber.value, itemSize.value, itemColor.value)">Update</button>
-    <button (click)="deleteItem()">Delete</button>
-    <button (click)="goBack()">Go Back</button>
-</div>
+<md-card *ngIf!="item">
+  <md-toolbar color="warn">Add Item</md-toolbar>
+  <md-card-content>
+      <table style="width: 100%" cellspacing="0">
+          <tr>
+              <td><md-input type="text" #name placeholder="Name" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" #number placeholder="Item Number" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" #size placeholder="Size" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" #color placeholder="Color" style="width: 100%"></md-input></td>
+          </tr>
+          <tr>
+              <td><md-input type="text" #tbId placeholder="TbId" style="width: 100%"></md-input></td>
+          </tr>
+    </table>
+  </md-card-content>
+  <md-card-actions>
+    <button type="button" class="btn btn-info" (click)="createItem(name.value, number.value, color.value, size.value, tbId.value)">Add</button>
+   </md-card-actions>
+</md-card>

@@ -1,11 +1,30 @@
-<h1>
-  {{title}}
-</h1>
-<div>
-    <label>Date: </label>
-    <input type="text" #orderDate/>
-    <button (click)="createItem(orderDate.value)">Go</button>
-</div>
-<div>
-    <button (click)="signOut()">Sign Out</button>
-</div>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <label>Pick a date</label>
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <my-date-picker [options]="myDatePickerOptions"
+                    (dateChanged)="onDateChanged($event)"></my-date-picker>        
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-info" (click)="navigateItems()">GO</button>
+            <button type="button" class="btn btn-info" (click)="getHistory()">HISTORY</button>
+            <button type="button" class="btn btn-info" (click)="signOut()">SIGN OUT</button>            
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
